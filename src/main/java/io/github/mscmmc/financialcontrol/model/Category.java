@@ -1,22 +1,22 @@
 package io.github.mscmmc.financialcontrol.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*; //< Traz as annotations JPA. Diz ao Hibernate como mapear a classe no banco
+import jakarta.validation.constraints.NotBlank; //< Campo não pode ser nulo ou string vazia
 
-@Entity
-@Table(name = "categories")
+@Entity //< Entidade JPA, vai virar tabela no banco de dados
+@Table(name = "categories") //< Define o nome da tabela no banco
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //< Chave primária da entidade (obrigatório)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //< Banco gera o ID automaticamente
     private Long id;
 
-    @NotBlank
+    @NotBlank //< Aplica validação no campo name antes de entrar no controller
     private String name;
 
     private String description;
 
-    /// Getters and Setters
+    /// Getters e Setters
     public Long getId() {
         return id;
     }
