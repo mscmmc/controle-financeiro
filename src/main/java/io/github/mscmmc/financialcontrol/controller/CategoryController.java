@@ -9,6 +9,12 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.net.URI;
 
+/**
+ * Controller é a ponte entre o HTTP e a regra de negócio (service).
+ * É o controlador REST: recebe requisições HTTP, valida entrada, chama o service
+ * e devolve a resposta.
+ */
+
 @RestController
 @RequestMapping("/api/categories")
 @Validated
@@ -27,7 +33,7 @@ public class CategoryController {
     public List<Category> list(){ return service.listAll(); }
 
     @GetMapping("/{id}")
-    public Category get(@PathVariable Long id){ return service.get(id); }
+    public Category get(@PathVariable Long id){ return service.get(id); } //< Converte /{id} para Long.
 
     @PutMapping("/{id}")
     public Category update(@PathVariable Long id, @Valid @RequestBody Category category){
