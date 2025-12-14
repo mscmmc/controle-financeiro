@@ -29,7 +29,7 @@ public class TransactionController {
         return transactionService.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public Transaction findById(@PathVariable Long id) {
         return transactionService.findById(id);
     }

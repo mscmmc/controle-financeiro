@@ -1,0 +1,11 @@
+### Criar uma transação
+POST http://localhost:8080/transactions
+Content-Type: application/json
+
+{
+  "descricao": "Almoço",
+  "valor": 50.00
+}
+
+### Listar transações
+GET http://localhost:8080/transactions
