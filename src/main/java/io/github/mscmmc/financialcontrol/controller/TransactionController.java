@@ -1,8 +1,11 @@
 package io.github.mscmmc.financialcontrol.controller;
 
+import io.github.mscmmc.financialcontrol.dto.TransactionRequestDTO;
 import io.github.mscmmc.financialcontrol.model.Transaction;
 import io.github.mscmmc.financialcontrol.service.TransactionService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,9 +19,9 @@ public class TransactionController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Transaction create(@RequestBody Transaction transaction) {
-        return transactionService.create(transaction);
+    public ResponseEntity<Transaction> create(@Valid @RequestBody TransactionRequestDTO dto) {
+        Transaction created =  transactionService.create(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping
