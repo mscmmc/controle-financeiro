@@ -21,5 +21,7 @@ public class TransactionMapper {
         transactionResponseDTO.setAmount(transaction.getAmount());
         transactionResponseDTO.setDescription(transaction.getDescription());
         transactionResponseDTO.setDate(transaction.getDate());
+
+        return transactionResponseDTO;
     }
 }
