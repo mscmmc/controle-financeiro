@@ -1,7 +1,10 @@
 package io.github.mscmmc.financialcontrol.service;
 
+import io.github.mscmmc.financialcontrol.dto.TransactionResponseDTO;
+import io.github.mscmmc.financialcontrol.mapper.TransactionMapper;
 import io.github.mscmmc.financialcontrol.model.Category;
 import io.github.mscmmc.financialcontrol.model.Transaction;
+import io.github.mscmmc.financialcontrol.repository.CategoryRepository;
 import io.github.mscmmc.financialcontrol.repository.TransactionRepository;
 import io.github.mscmmc.financialcontrol.exception.NotFoundException;
 import io.github.mscmmc.financialcontrol.dto.TransactionRequestDTO;
@@ -11,37 +14,45 @@ import java.util.List;
 @Service
 public class TransactionService {
 
-    private final TransactionRepository repository;
-    private final CategoryService categoryService;
+    private final TransactionRepository transactionRepository;
+    private final CategoryRepository categoryRepository;
 
-    public TransactionService(TransactionRepository repository, CategoryService categoryService) {
-        this.repository = repository;
-        this.categoryService = categoryService;
+    public TransactionService(TransactionRepository transactionRepository, CategoryRepository categoryRepository) {
+        this.transactionRepository = transactionRepository;
+        this.categoryRepository = categoryRepository;
     }
 
-    public Transaction create(TransactionRequestDTO dto) {
-        Category category = categoryService.get(dto.getCategoryId());
-
+    public TransactionResponseDTO create(TransactionRequestDTO transactionRequestDTO) {
         Transaction transaction = new Transaction();
+        transaction.setAmount(transactionRequestDTO.getAmount());
+        transaction.setDescription(transactionRequestDTO.getDescription());
+        transaction.setDate(transactionRequestDTO.getDate());
 
-        transaction.setCategory(category);
-        transaction.setAmount(dto.getAmount());
-        transaction.setDescription(dto.getDescription());
-        transaction.setDate(dto.getDate());
+        if (transactionRequestDTO.getCategoryId() != null) {
+            Category category = categoryRepository.findById(transactionRequestDTO.getCategoryId())
+                    .orElseThrow(() -> new NotFoundException("Category not found"));
+            transaction.setCategory(category);
+        }
 
-        return repository.save(transaction);
+        Transaction saved =  transactionRepository.save(transaction);
+        return TransactionMapper.toTransactionResponseDTO(saved);
     }
 
-    public List<Transaction> findAll() {
-        return repository.findAll();
+    public List<TransactionResponseDTO> findAll() {
+        return transactionRepository.findAll()
+                .stream()
+                .map(TransactionMapper::toTransactionResponseDTO)
+                .toList();
     }
 
-    public Transaction findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("Transaction with id " + id + " not found"));
+    public TransactionResponseDTO findById(Long id) {
+        Transaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Transaction not found"));
+
+        return TransactionMapper.toTransactionResponseDTO(transaction);
     }
 
     public void deleteById(Long id) {
-        Transaction transaction = findById(id); //< Garante que o ID existe antes de excluir
-        repository.delete(transaction);
+        transactionRepository.deleteById(id);
     }
 }

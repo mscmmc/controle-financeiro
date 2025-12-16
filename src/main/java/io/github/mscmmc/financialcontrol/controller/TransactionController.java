@@ -1,6 +1,7 @@
 package io.github.mscmmc.financialcontrol.controller;
 
 import io.github.mscmmc.financialcontrol.dto.TransactionRequestDTO;
+import io.github.mscmmc.financialcontrol.dto.TransactionResponseDTO;
 import io.github.mscmmc.financialcontrol.model.Transaction;
 import io.github.mscmmc.financialcontrol.service.TransactionService;
 import jakarta.validation.Valid;
@@ -19,18 +20,18 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> create(@Valid @RequestBody TransactionRequestDTO dto) {
-        Transaction created =  transactionService.create(dto);
+    public ResponseEntity<TransactionResponseDTO> create(@Valid @RequestBody TransactionRequestDTO dto) {
+        TransactionResponseDTO created =  transactionService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping
-    public List<Transaction> findAll() {
+    public List<TransactionResponseDTO> findAll() {
         return transactionService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Transaction findById(@PathVariable Long id) {
+    public TransactionResponseDTO findById(@PathVariable Long id) {
         return transactionService.findById(id);
     }
 
