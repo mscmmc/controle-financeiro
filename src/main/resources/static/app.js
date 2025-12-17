@@ -67,9 +67,5 @@ async function loadTransactions() {
     })
 }
 
-async function init() {
-    await loadCategories();
-    await loadTransactions();
-}
-
-init();
+window.createCategory = createCategory;
+window.createTransaction = createTransaction;
