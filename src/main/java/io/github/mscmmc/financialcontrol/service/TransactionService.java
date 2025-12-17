@@ -9,6 +9,8 @@ import io.github.mscmmc.financialcontrol.repository.TransactionRepository;
 import io.github.mscmmc.financialcontrol.exception.NotFoundException;
 import io.github.mscmmc.financialcontrol.dto.TransactionRequestDTO;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,7 +28,7 @@ public class TransactionService {
         Transaction transaction = new Transaction();
         transaction.setAmount(transactionRequestDTO.getAmount());
         transaction.setDescription(transactionRequestDTO.getDescription());
-        transaction.setDate(transactionRequestDTO.getDate());
+        transaction.setDate(LocalDate.now());
 
         if (transactionRequestDTO.getCategoryId() != null) {
             Category category = categoryRepository.findById(transactionRequestDTO.getCategoryId())

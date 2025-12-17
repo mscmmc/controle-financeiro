@@ -30,15 +30,16 @@ async function createCategory() {
 
 async function createTransaction() {
     const description = document.getElementById("tx-desc").value;
-    const value = document.getElementById("tx-value").value;
-    const categoryId = document.getElementById("tx-category").value;
+
+    const value = Number(document.getElementById("tx-value").value);
+    const categoryId = Number(document.getElementById("tx-category").value);
 
     await fetch (`${API}/transactions`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             description,
-            value,
+            amount,
             categoryId
         })
     });

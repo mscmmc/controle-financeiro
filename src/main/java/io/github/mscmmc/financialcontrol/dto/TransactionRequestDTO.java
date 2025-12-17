@@ -12,9 +12,6 @@ public class TransactionRequestDTO {
     private String description;
 
     @NotNull
-    private LocalDate date;
-
-    @NotNull
     private Long categoryId;
 
     public BigDecimal getAmount() {
@@ -31,14 +28,6 @@ public class TransactionRequestDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public Long getCategoryId() {
