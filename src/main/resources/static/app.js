@@ -31,7 +31,7 @@ async function createCategory() {
 async function createTransaction() {
     const description = document.getElementById("tx-desc").value;
 
-    const value = Number(document.getElementById("tx-value").value);
+    const amount     = Number(document.getElementById("tx-value").value);
     const categoryId = Number(document.getElementById("tx-category").value);
 
     await fetch (`${API}/transactions`, {
