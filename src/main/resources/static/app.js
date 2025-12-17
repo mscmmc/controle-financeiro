@@ -59,7 +59,7 @@ async function loadTransactions() {
 
         row.innerHTML = `
             <td>${t.description}</td>
-            <td>${t.value}</td>
+            <td>${t.amount}</td>
             <td>${t.category?.name ?? "-"}</td>
             <td>${new Date(t.date).toLocaleDateString()}</td>
         `;
