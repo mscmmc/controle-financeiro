@@ -1,7 +1,7 @@
 const API = "http://localhost:8080"
 
 async function loadCategories() {
-    const res = await fetch ('${API}/api/categories')
+    const res = await fetch (`${API}/api/categories`)
     const categories = await res.json();
 
     const select = document.getElementById("tx-category");
@@ -19,7 +19,7 @@ async function createCategory() {
     const name = document.getElementById("cat-name").value;
     const description = document.getElementById("cat-desc").value;
 
-    await fetch ('${API}/api/categories', {
+    await fetch (`${API}/api/categories`, {
        method: "POST",
        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ name, description })
@@ -33,7 +33,7 @@ async function createTransaction() {
     const value = document.getElementById("tx-value").value;
     const categoryId = document.getElementById("tx-category").value;
 
-    await fetch ('${API}/transactions', {
+    await fetch (`${API}/transactions`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -47,7 +47,7 @@ async function createTransaction() {
 }
 
 async function loadTransactions() {
-    const res = await fetch ('${API}/transactions');
+    const res = await fetch (`${API}/transactions`);
     const txs = await res.json();
 
     const table = document.getElementById("tx-table");
