@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Controle Financeiro</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<h1>Controle Financeiro</h1>
+
+<section>
+    <h2>Nova Categoria</h2>
+    <input id="cat-name" placeholder="Nome" />
+    <input id="cat-desc" placeholder="Descrição" />
+    <button onclick="createCategory()">Criar</button>
+</section>
+
+<section>
+    <h2>Nova Transação</h2>
+    <input id="tx-desc" placeholder="Descrição" />
+    <input id="tx-value" type="number" step="0.01" placeholder="Valor" />
+    <select id="tx-category"></select>
+    <button onclick="createTransaction()">Adicionar</button>
+</section>
+
+<section>
+    <h2>Transações</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Categoria</th>
+            <th>Data</th>
+        </tr>
+        </thead>
+        <tbody id="tx-table"></tbody>
+    </table>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
